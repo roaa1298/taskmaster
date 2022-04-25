@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">myTasks</string>
+    <string name="task_description">Task Description</string>
+    <string name="task_title">Task Title</string>
+</resources>
