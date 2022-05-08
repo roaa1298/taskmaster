@@ -7,7 +7,7 @@
     
 ![home](screenshots/home.jpeg)
 
-- After the editing in lab27:   
+### After the editing in lab27:   
    - username section.  
    - three buttons for three different tasks.  
 
@@ -15,7 +15,13 @@
 
 - The menu that have the settings item.  
 
-![home](screenshots/menu-sett.jpeg)
+![home](screenshots/menu-sett.jpeg)  
+
+### After the editing in lab28:
+   - add a recyclerView to view 4 tasks.
+   - you can click on the task item, and it will appropriately launch the detail page with the correct Task title displayed.  
+  
+![home](screenshots/home-lab28.jpeg)
 
 ## Add Task page
 - Here is the **Add Task** page that contains two text fields to add the task name and description.
