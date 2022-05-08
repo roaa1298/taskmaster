@@ -2,6 +2,8 @@ package com.roaa.mytasks;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,11 +16,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.roaa.mytasks.data.Task;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView userTasks;
+    List<Task> TaskInfoList = new ArrayList<>();
 
     private final View.OnClickListener addTaskButtonListener=new View.OnClickListener() {
         @Override
@@ -46,25 +53,40 @@ public class MainActivity extends AppCompatActivity {
         Button allButton = findViewById(R.id.allTasks);
         userTasks=findViewById(R.id.userTasks);
 
-        Button task1 = findViewById(R.id.task1);
-        Button task2 = findViewById(R.id.task2);
-        Button task3 = findViewById(R.id.task3);
+        initialiseData();
 
-        task1.setOnClickListener(view -> {
+        RecyclerView recyclerView = findViewById(R.id.tasks);
+        TaskRecyclerViewAdapter taskRecyclerViewAdapter = new TaskRecyclerViewAdapter(
+                TaskInfoList, position -> {
+
             Intent intent1=new Intent(getApplicationContext(),TaskDetails.class);
-            intent1.putExtra("TaskTitle",task1.getText());
+            intent1.putExtra("TaskTitle",TaskInfoList.get(position).getTitle());
             startActivity(intent1);
         });
-        task2.setOnClickListener(view -> {
-            Intent intent2=new Intent(getApplicationContext(),TaskDetails.class);
-            intent2.putExtra("TaskTitle",task2.getText());
-            startActivity(intent2);
-        });
-        task3.setOnClickListener(view -> {
-            Intent intent3=new Intent(getApplicationContext(),TaskDetails.class);
-            intent3.putExtra("TaskTitle",task3.getText());
-            startActivity(intent3);
-        });
+        recyclerView.setAdapter(taskRecyclerViewAdapter);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+//        Button task1 = findViewById(R.id.task1);
+//        Button task2 = findViewById(R.id.task2);
+//        Button task3 = findViewById(R.id.task3);
+//
+//        task1.setOnClickListener(view -> {
+//            Intent intent1=new Intent(getApplicationContext(),TaskDetails.class);
+//            intent1.putExtra("TaskTitle",task1.getText());
+//            startActivity(intent1);
+//        });
+//        task2.setOnClickListener(view -> {
+//            Intent intent2=new Intent(getApplicationContext(),TaskDetails.class);
+//            intent2.putExtra("TaskTitle",task2.getText());
+//            startActivity(intent2);
+//        });
+//        task3.setOnClickListener(view -> {
+//            Intent intent3=new Intent(getApplicationContext(),TaskDetails.class);
+//            intent3.putExtra("TaskTitle",task3.getText());
+//            startActivity(intent3);
+//        });
 
         addButton.setOnClickListener(addTaskButtonListener);
         allButton.setOnClickListener(allTasksButtonListener);
@@ -100,6 +122,13 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         userTasks.setText(sharedPreferences.getString(Settings.USERNAME, "User Tasks")+"'s Tasks");
+    }
+
+    private void initialiseData() {
+        TaskInfoList.add(new Task("Task1", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "new"));
+        TaskInfoList.add(new Task("Task2", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "assigned"));
+        TaskInfoList.add(new Task("Task3", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "in progress"));
+        TaskInfoList.add(new Task("Task4", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "complete"));
     }
 
 }
