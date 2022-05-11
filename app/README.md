@@ -21,7 +21,12 @@
    - add a recyclerView to view 4 tasks.
    - you can click on the task item, and it will appropriately launch the detail page with the correct Task title displayed.  
   
-![home](screenshots/home-lab28.jpeg)
+![home](screenshots/home-lab28.jpeg)  
+
+### After the editing in lab29:
+   - Displaying all the tasks records from the task table in the database.  
+   
+![home](screenshots/database.jpeg)
 
 ## Add Task page
 - Here is the **Add Task** page that contains two text fields to add the task name and description.
@@ -67,3 +72,10 @@
 ![task2](screenshots/task2.jpeg)     
 
 ![task3](screenshots/task3.jpeg)    
+
+### After the editing in lab29:  
+- display the task description and state in addition to the title.  
+
+![task5](screenshots/task5.jpeg)  
+
+![task6](screenshots/task6.jpeg)  
