@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.roaa.mytasks.data.Task;
 
 import java.util.Objects;
 
@@ -28,11 +31,16 @@ public class MainActivity2 extends AppCompatActivity {
 
         Button addingButton = findViewById(R.id.adding);
         TotalText=findViewById(R.id.total);
+        EditText taskTitle=findViewById(R.id.task_title);
+        EditText taskDescription=findViewById(R.id.task_desc);
 
 
         addingButton.setOnClickListener(view -> {
             counter++;
             TotalText.setText("Total Tasks: "+counter);
+            Task task=new Task(taskTitle.getText().toString(),taskDescription.getText().toString(),"assigned");
+            Long newTask = TaskAppDatabase.getInstance(getApplicationContext()).taskDao().insertTask(task);
+            System.out.println("----------- Task ID: "+newTask+" -------------------");
             Toast.makeText(this,"submitted!",Toast.LENGTH_SHORT).show();
         });
 

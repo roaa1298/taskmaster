@@ -6,4 +6,5 @@
     <string name="username">username</string>
     <string name="enter_your_username">Enter your username</string>
     <string name="settings">settings</string>
+    <string name="submitted">submitted!</string>
 </resources>

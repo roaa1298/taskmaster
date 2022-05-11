@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
         Button allButton = findViewById(R.id.allTasks);
         userTasks=findViewById(R.id.userTasks);
 
-        initialiseData();
+//        initialiseData();
+        TaskInfoList=TaskAppDatabase.getInstance(getApplicationContext()).taskDao().getAll();
 
         RecyclerView recyclerView = findViewById(R.id.tasks);
         TaskRecyclerViewAdapter taskRecyclerViewAdapter = new TaskRecyclerViewAdapter(
@@ -61,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
             Intent intent1=new Intent(getApplicationContext(),TaskDetails.class);
             intent1.putExtra("TaskTitle",TaskInfoList.get(position).getTitle());
+            intent1.putExtra("TaskDesc",TaskInfoList.get(position).getBody());
+            intent1.putExtra("TaskState",TaskInfoList.get(position).getState());
             startActivity(intent1);
         });
         recyclerView.setAdapter(taskRecyclerViewAdapter);
