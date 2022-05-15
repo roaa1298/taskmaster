@@ -21,9 +21,13 @@ public class TaskDetails extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(pageTitle);
 
+//        String str=findViewById(R.id.a)
+
         TextView desc=findViewById(R.id.desc);
         TextView task_state=findViewById(R.id.task_state);
+        TextView T_title=findViewById(R.id.taskTitleView);
         desc.setText(titleIntent.getStringExtra("TaskDesc"));
         task_state.setText(titleIntent.getStringExtra("TaskState"));
+        T_title.setText(pageTitle);
     }
 }
