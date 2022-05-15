@@ -1,11 +1,14 @@
 package com.roaa.mytasks;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -16,14 +19,19 @@ import static org.hamcrest.Matchers.allOf;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.View;
 
+import androidx.appcompat.widget.MenuPopupWindow;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.roaa.mytasks.data.Task;
 
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
@@ -62,9 +70,10 @@ public class TaskAppTests {
     }
     @Test
     public void settingsPageTest(){
-        onView(Matchers.allOf(withId(R.id.action_settings),isDisplayed())).perform(click());
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getTargetContext());
+        onData(CoreMatchers.anything()).inRoot(RootMatchers.isPlatformPopup()).inAdapterView(CoreMatchers.<View>instanceOf(MenuPopupWindow.MenuDropDownListView.class)).atPosition(0).perform(click());
         onView(withId(R.id.settingLayout)).check(matches(isDisplayed()));
-        onView(withId(R.id.task_title))
+        onView(withId(R.id.username))
                 .perform(typeText("roaa"), closeSoftKeyboard());
         onView(withId(R.id.save)).perform(click());
         pressBack();
