@@ -14,14 +14,23 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.Matchers.allOf;
 
+import android.app.Activity;
+import android.content.Context;
+
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.roaa.mytasks.data.Task;
+
+import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class TaskAppTests {
@@ -32,12 +41,11 @@ public class TaskAppTests {
 
     @Test
     public void navigateToDetailsPageTest(){
-        onView(withId(R.id.tasks)).perform(RecyclerViewActions.actionOnItemAtPosition(1,click()));
+        onView(withId(R.id.tasks)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
         onView(withId(R.id.task_details)).check(matches(isDisplayed()));
-        // I want to check the toolbar title if it matches the task title in the next time because i don't have a text view title.
-        // if i have a text view title i can test it like this:
-        // onView(withId(R.id.taskTitle)).check(matches(withText("task1")));
-
+        onView(withId(R.id.taskTitleView)).check(matches(withText("task1")));
+        onView(withId(R.id.desc)).check(matches(withText("task1")));
+        onView(withId(R.id.task_state)).check(matches(withText("new")));
     }
 
     @Test
@@ -49,11 +57,12 @@ public class TaskAppTests {
         onView(withId(R.id.task_desc))
                 .perform(typeText("Modify your Add Task form to save the data entered in as a Task in your local database."), closeSoftKeyboard());
         onView(withId(R.id.adding)).perform(click());
+        onView(withId(R.id.total)).check(matches(withText("Total Tasks: 1")));
 
     }
     @Test
     public void settingsPageTest(){
-        onView(withId(R.id.action_settings)).perform(click());
+        onView(Matchers.allOf(withId(R.id.action_settings),isDisplayed())).perform(click());
         onView(withId(R.id.settingLayout)).check(matches(isDisplayed()));
         onView(withId(R.id.task_title))
                 .perform(typeText("roaa"), closeSoftKeyboard());

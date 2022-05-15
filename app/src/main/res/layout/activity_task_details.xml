@@ -10,9 +10,9 @@
     <TextView
         android:id="@+id/desc"
         android:layout_width="327dp"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/back"
         android:fontFamily="@font/boogaloo"
         android:text="@string/lorem_string"
@@ -67,5 +67,23 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <TextView
+        android:id="@+id/taskTitleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginBottom="14dp"
+        android:background="#C9FFFF"
+        android:fontFamily="@font/carter_one"
+        android:padding="5dp"
+        android:text="Task Title"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.47" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
