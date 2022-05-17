@@ -53,7 +53,7 @@ public class TaskAppTests {
         onView(withId(R.id.task_details)).check(matches(isDisplayed()));
         onView(withId(R.id.taskTitleView)).check(matches(withText("task1")));
         onView(withId(R.id.desc)).check(matches(withText("task1")));
-        onView(withId(R.id.task_state)).check(matches(withText("new")));
+        onView(withId(R.id.task_state)).check(matches(withText("ASSIGNED")));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class TaskAppTests {
         onView(withId(R.id.addTask)).perform(click());
         onView(withId(R.id.addTaskLayout)).check(matches(isDisplayed()));
         onView(withId(R.id.task_title))
-                .perform(typeText("task1"), closeSoftKeyboard());
+                .perform(typeText("task4"), closeSoftKeyboard());
         onView(withId(R.id.task_desc))
                 .perform(typeText("Modify your Add Task form to save the data entered in as a Task in your local database."), closeSoftKeyboard());
         onView(withId(R.id.adding)).perform(click());
