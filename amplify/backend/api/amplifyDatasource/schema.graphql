@@ -1,0 +1,17 @@
+type Task @model {
+  id: ID!
+  title: String!
+  description: String
+  status: Status!
+}
+type Note @model {
+  id: ID!
+  content: String!
+}
+enum Status {
+  NEW
+  ASSIGNED
+  IN_PROGRESS
+  COMPLETE
+}
+

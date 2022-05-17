@@ -10,13 +10,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.roaa.mytasks.data.Task;
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.AWSDataStorePlugin;
+import com.amplifyframework.datastore.generated.model.Task;
+//import com.roaa.mytasks.data.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +29,9 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private TextView userTasks;
+//    List<Task> TaskInfoList = new ArrayList<>();
     List<Task> TaskInfoList = new ArrayList<>();
 
     private final View.OnClickListener addTaskButtonListener=new View.OnClickListener() {
@@ -47,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        try {
+            Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.configure(getApplicationContext());
+
+            Log.i(TAG, "Initialized Amplify");
+        } catch (AmplifyException e) {
+            Log.e(TAG, "Could not initialize Amplify", e);
+        }
+
         Objects.requireNonNull(getSupportActionBar()).setTitle("My Tasks");
 
         Button addButton = findViewById(R.id.addTask);
@@ -54,7 +70,16 @@ public class MainActivity extends AppCompatActivity {
         userTasks=findViewById(R.id.userTasks);
 
 //        initialiseData();
-        TaskInfoList=TaskAppDatabase.getInstance(getApplicationContext()).taskDao().getAll();
+//        TaskInfoList=TaskAppDatabase.getInstance(getApplicationContext()).taskDao().getAll();
+        Amplify.DataStore.query(Task.class ,
+                tasks -> {
+                    while (tasks.hasNext()) {
+                        Task eachTask = tasks.next();
+                        TaskInfoList.add(eachTask);
+                    }
+                },
+                failure -> Log.e(TAG, "Could not query DataStore", failure)
+                );
 
         RecyclerView recyclerView = findViewById(R.id.tasks);
         TaskRecyclerViewAdapter taskRecyclerViewAdapter = new TaskRecyclerViewAdapter(
@@ -62,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
             Intent intent1=new Intent(getApplicationContext(),TaskDetails.class);
             intent1.putExtra("TaskTitle",TaskInfoList.get(position).getTitle());
-            intent1.putExtra("TaskDesc",TaskInfoList.get(position).getBody());
-            intent1.putExtra("TaskState",TaskInfoList.get(position).getState());
+            intent1.putExtra("TaskDesc",TaskInfoList.get(position).getDescription());
+            intent1.putExtra("TaskState",TaskInfoList.get(position).getStatus().toString());
             startActivity(intent1);
         });
         recyclerView.setAdapter(taskRecyclerViewAdapter);
@@ -128,11 +153,11 @@ public class MainActivity extends AppCompatActivity {
         userTasks.setText(sharedPreferences.getString(Settings.USERNAME, "User Tasks")+"'s Tasks");
     }
 
-    private void initialiseData() {
-        TaskInfoList.add(new Task("Task1", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "new"));
-        TaskInfoList.add(new Task("Task2", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "assigned"));
-        TaskInfoList.add(new Task("Task3", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "in progress"));
-        TaskInfoList.add(new Task("Task4", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "complete"));
-    }
+//    private void initialiseData() {
+//        TaskInfoList.add(new Task("Task1", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "new"));
+//        TaskInfoList.add(new Task("Task2", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "assigned"));
+//        TaskInfoList.add(new Task("Task3", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "in progress"));
+//        TaskInfoList.add(new Task("Task4", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "complete"));
+//    }
 
 }

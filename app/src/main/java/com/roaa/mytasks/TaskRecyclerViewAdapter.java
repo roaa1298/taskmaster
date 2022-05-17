@@ -8,7 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.roaa.mytasks.data.Task;
+//import com.roaa.mytasks.data.Task;
+
+import com.amplifyframework.datastore.generated.model.Task;
 
 import java.util.List;
 
@@ -33,8 +35,8 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         holder.title.setText(dataList.get(position).getTitle());
-        holder.body.setText(dataList.get(position).getBody());
-        holder.state.setText(dataList.get(position).getState());
+        holder.body.setText(dataList.get(position).getDescription());
+        holder.state.setText(dataList.get(position).getStatus().toString());
 
     }
 
