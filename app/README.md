@@ -29,7 +29,12 @@
 ![home](screenshots/database.jpeg)  
 
 ### After the editing in lab31:
-- I did espresso testing for this page.
+- I did espresso testing for this page.  
+
+### After the editing in lab32:   
+- receive the data from DynamoDB.
+
+![home](screenshots/main_aws.jpeg)  
 
 ## Add Task page
 - Here is the **Add Task** page that contains two text fields to add the task name and description.
@@ -39,7 +44,12 @@
 ![addTask](screenshots/add_task1.jpeg)   
 
 ### After the editing in lab31:
-- I did espresso testing for this page.
+- I did espresso testing for this page.  
+
+### After the editing in lab32:  
+- add the data to the DynamoDB.
+
+![add](screenshots/add_aws.jpeg)
 
 ## Increase the total
 - Here is the total increased after i clicked on the **add Task** button.
@@ -97,3 +107,8 @@
 - I did espresso testing for this page.
 
 ![task6](screenshots/title.jpeg)
+
+### After the editing in lab32:   
+
+![detail](screenshots/detail_aws.jpeg)
+
