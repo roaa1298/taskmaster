@@ -25,7 +25,7 @@
         android:layout_width="338dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
@@ -64,12 +64,22 @@
             tools:layout_editor_absoluteY="363dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Spinner
+        android:id="@+id/addTeam"
+        android:layout_width="149dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="65dp"
+        android:entries="@array/teams"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
     <Button
         android:id="@+id/adding"
         android:layout_width="115dp"
         android:layout_height="54dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="85dp"
         android:backgroundTint="@color/teal_700"
         android:text="Add Task"
         android:textColor="@color/white"
@@ -81,7 +91,7 @@
         android:layout_width="149dp"
         android:layout_height="56dp"
         android:layout_marginStart="116dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="18dp"
         android:layout_marginBottom="128dp"
         android:text="Total Tasks: 0"
         android:textColor="#020202"
@@ -90,6 +100,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adding"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:text="Choose a team: "
+        android:textColor="#015A5A"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

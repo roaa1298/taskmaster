@@ -7,4 +7,10 @@
     <string name="enter_your_username">Enter your username</string>
     <string name="settings">settings</string>
     <string name="submitted">submitted!</string>
+    <string name="AddTeam">Add Team</string>
+    <string-array name="teams">
+        <item>Team1</item>
+        <item>Team2</item>
+        <item>Team3</item>
+    </string-array>
 </resources>
