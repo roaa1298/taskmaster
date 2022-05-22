@@ -10,16 +10,23 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.Objects;
 
 public class Settings extends AppCompatActivity {
 
+    public static final String TEAMNAME = "TeamName";
     private EditText userName;
     public static final String USERNAME = "userN";
+    String[] teams={"Team1","Team2","Team3"};
+    String teamSelected;
+    Spinner spin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,26 @@ public class Settings extends AppCompatActivity {
 
         userName=findViewById(R.id.username);
         Button saveBtn = findViewById(R.id.save);
+
+        spin=findViewById(R.id.chooseTeam);
+        ArrayAdapter<CharSequence> ad = ArrayAdapter.createFromResource(
+                this,
+                R.array.teams,
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+
+        spin.setAdapter(ad);
+
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                teamSelected=teams[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         saveBtn.setOnClickListener(view -> {
             saveUserName();
@@ -72,6 +99,7 @@ public class Settings extends AppCompatActivity {
         SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
 
         preferenceEditor.putString(USERNAME, UName);
+        preferenceEditor.putString(TEAMNAME,teamSelected);
         preferenceEditor.apply();
 
         Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
