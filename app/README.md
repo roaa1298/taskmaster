@@ -36,6 +36,21 @@
 
 ![home](screenshots/main_aws.jpeg)  
 
+### After the editing in lab33:  
+- showing the Tasks that related to a specific Team.
+
+![home](screenshots/Team1Tasks.png)    
+
+![home](screenshots/Team2Tasks.png)    
+
+![home](screenshots/Team3Tasks.png)   
+
+- editing the hieght of the recyclerView.
+
+![home](screenshots/homeTeam1.png)   
+
+![home](screenshots/homeTeam2.png)   
+
 ## Add Task page
 - Here is the **Add Task** page that contains two text fields to add the task name and description.
 - And there is a submit button **(add Task)**, it is increase the total number of tasks and show it at the bottom, and show a toast message that contains **"submitted!"** text.
@@ -50,6 +65,15 @@
 - add the data to the DynamoDB.
 
 ![add](screenshots/add_aws.jpeg)
+
+### After the editing in lab33:
+- Choose a Team for every Task.
+
+![add](screenshots/AddToTeam1.png)   
+
+![add](screenshots/AddToTeam2.png)    
+
+![add](screenshots/AddToTeam3.png)    
 
 ## Increase the total
 - Here is the total increased after i clicked on the **add Task** button.
@@ -84,6 +108,13 @@
 
 ### After the editing in lab31:
 - I did espresso testing for this page.
+
+### After the editing in lab33:
+- Choose a team to show its tasks in the home page.
+
+![settings](screenshots/SettingTeam1.png)   
+
+![settings](screenshots/SettingTeam2.png)  
 
 ## Task Detail page  
 - This is the task Details page that have a simple image and random text for the task description.  

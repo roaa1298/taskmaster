@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
@@ -40,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private TextView userTasks;
 //    List<Task> TaskInfoList = new ArrayList<>();
-    List<Task> TaskInfoList = new ArrayList<>();
     List<Team> TeamInfoList = new ArrayList<>();
     private Handler handler;
+    private String teamName;
 
     private final View.OnClickListener addTaskButtonListener=new View.OnClickListener() {
         @Override
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(startThirdActivityIntent);
         }
     };
+    private String teamId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
         } catch (AmplifyException e) {
             Log.e(TAG, "Could not initialize Amplify", e);
         }
+
+        Log.i(TAG, "onCreate: just for testing -->"+teamName);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        teamName =sharedPreferences.getString(Settings.TEAMNAME,"Team");
 
         createTeams();
 
@@ -93,45 +98,12 @@ public class MainActivity extends AppCompatActivity {
 //                },
 //                failure -> Log.e(TAG, "Could not query DataStore", failure)
 //                );
-        Amplify.API.query(
-                ModelQuery.list(Task.class),
-                success -> {
-                    if (success.hasData()) {
-                        for (Task task : success.getData()) {
-                            TaskInfoList.add(task);
-                        }
-                    }
-                    Bundle bundle = new Bundle();
-                    bundle.putString("tasksList", success.toString());
 
-                    Message message = new Message();
-                    message.setData(bundle);
-
-                    handler.sendMessage(message);
-
-                },
-                error -> Log.e(TAG, "Could not query Api", error)
-        );
-
-        handler = new Handler(Looper.getMainLooper(), msg -> {
-            RecyclerView recyclerView = findViewById(R.id.tasks);
-            TaskRecyclerViewAdapter taskRecyclerViewAdapter = new TaskRecyclerViewAdapter(
-                    TaskInfoList, position -> {
-
-                Intent intent1=new Intent(getApplicationContext(),TaskDetails.class);
-                intent1.putExtra("TaskTitle",TaskInfoList.get(position).getTitle());
-                intent1.putExtra("TaskDesc",TaskInfoList.get(position).getDescription());
-                intent1.putExtra("TaskState",TaskInfoList.get(position).getStatus().toString());
-                startActivity(intent1);
-            });
-            recyclerView.setAdapter(taskRecyclerViewAdapter);
-
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-            return true;
-
-        });
+        if (teamName!="Team"){
+            getTeamTasks();
+        } else {
+            getAllTasks();
+        }
 
 
 //        Button task1 = findViewById(R.id.task1);
@@ -190,6 +162,110 @@ public class MainActivity extends AppCompatActivity {
                 error -> Log.e(TAG, "could not save the teams ", error)
         );
     }
+     private void getTeamTasks(){
+        List<Task> teamTasks=new ArrayList<>();
+         Amplify.API.query(ModelQuery.list(Team.class,Team.NAME.eq(teamName)),
+                 teamSuccess->{
+                     if (teamSuccess.hasData())
+                     {
+                         for (Team team : teamSuccess.getData())
+                         {
+                                 teamId=team.getId();
+                                 Log.i(TAG, "getTeamId: just for testing ->"+team.getName());
+                         }
+                         Amplify.API.query(
+                                 ModelQuery.list(Task.class,Task.TEAM_TASKS_ID.eq(teamId)),
+                                 success -> {
+                                     if (success.hasData()) {
+                                         for (Task task : success.getData()) {
+                                             teamTasks.add(task);
+                                         }
+                                     }
+                                     Bundle bundle = new Bundle();
+                                     bundle.putString("tasksList", success.toString());
+
+                                     Message message = new Message();
+                                     message.setData(bundle);
+
+                                     handler.sendMessage(message);
+
+                                 },
+                                 error -> Log.e(TAG, "Could not query Api", error)
+                         );
+                     }
+                 }
+                 , error->{
+                     Log.e(TAG,"Could not query Api",error);
+         });
+
+         handler = new Handler(Looper.getMainLooper(), msg -> {
+             RecyclerView recyclerView = findViewById(R.id.tasks);
+             TaskRecyclerViewAdapter taskRecyclerViewAdapter = new TaskRecyclerViewAdapter(
+                     teamTasks, position -> {
+
+                 Intent intent1=new Intent(getApplicationContext(),TaskDetails.class);
+                 intent1.putExtra("TaskTitle",teamTasks.get(position).getTitle());
+                 intent1.putExtra("TaskDesc",teamTasks.get(position).getDescription());
+                 intent1.putExtra("TaskState",teamTasks.get(position).getStatus().toString());
+                 startActivity(intent1);
+             });
+             recyclerView.setAdapter(taskRecyclerViewAdapter);
+
+             recyclerView.setHasFixedSize(true);
+             recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+             return true;
+
+         });
+
+     }
+     private void getAllTasks(){
+         List<Task> TaskInfoList = new ArrayList<>();
+         Log.i(TAG, "filterTeams: just for testing->"+teamName);
+
+         Log.i(TAG, "filterTeams: the first one-> ");
+         Amplify.API.query(
+                     ModelQuery.list(Task.class),
+                     success -> {
+                         if (success.hasData()) {
+                             for (Task task : success.getData()) {
+                                 TaskInfoList.add(task);
+                             }
+                         }
+                         Bundle bundle = new Bundle();
+                         bundle.putString("tasksList", success.toString());
+
+                         Message message = new Message();
+                         message.setData(bundle);
+
+                         handler.sendMessage(message);
+
+                     },
+                     error -> Log.e(TAG, "Could not query Api", error)
+         );
+
+         handler = new Handler(Looper.getMainLooper(), msg -> {
+             RecyclerView recyclerView = findViewById(R.id.tasks);
+             TaskRecyclerViewAdapter taskRecyclerViewAdapter = new TaskRecyclerViewAdapter(
+                     TaskInfoList, position -> {
+
+                 Intent intent1=new Intent(getApplicationContext(),TaskDetails.class);
+                 intent1.putExtra("TaskTitle",TaskInfoList.get(position).getTitle());
+                 intent1.putExtra("TaskDesc",TaskInfoList.get(position).getDescription());
+                 intent1.putExtra("TaskState",TaskInfoList.get(position).getStatus().toString());
+                 startActivity(intent1);
+             });
+             recyclerView.setAdapter(taskRecyclerViewAdapter);
+
+             recyclerView.setHasFixedSize(true);
+             recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+             return true;
+
+         });
+
+     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -212,7 +288,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i(TAG, "onResume: just for testing -->"+teamName);
         setUserName();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        teamName =sharedPreferences.getString(Settings.TEAMNAME,"Team");
+
+        if (teamName!="Team"){
+            getTeamTasks();
+        } else {
+            getAllTasks();
+        }
+
     }
     private void navigateToSettings() {
         Intent settingsIntent = new Intent(this, Settings.class);
@@ -222,8 +308,11 @@ public class MainActivity extends AppCompatActivity {
     private void setUserName() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        teamName =sharedPreferences.getString(Settings.TEAMNAME,"Team");
+        Log.i(TAG, "setUserName: just for testing ->"+teamName);
         userTasks.setText(sharedPreferences.getString(Settings.TEAMNAME, "Team")+"'s Tasks");
     }
+
 
 //    private void initialiseData() {
 //        TaskInfoList.add(new Task("Task1", "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content.", "new"));
