@@ -13,9 +13,13 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 
 import android.app.Activity;
 import android.content.Context;
@@ -52,7 +56,7 @@ public class TaskAppTests {
         onView(withId(R.id.tasks)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
         onView(withId(R.id.task_details)).check(matches(isDisplayed()));
         onView(withId(R.id.taskTitleView)).check(matches(withText("task1")));
-        onView(withId(R.id.desc)).check(matches(withText("task1")));
+        onView(withId(R.id.desc)).check(matches(withText("testing")));
         onView(withId(R.id.task_state)).check(matches(withText("ASSIGNED")));
     }
 
@@ -64,6 +68,9 @@ public class TaskAppTests {
                 .perform(typeText("task4"), closeSoftKeyboard());
         onView(withId(R.id.task_desc))
                 .perform(typeText("Modify your Add Task form to save the data entered in as a Task in your local database."), closeSoftKeyboard());
+        onView(withId(R.id.addTeam)).perform(click());
+        onData(allOf(is(instanceOf(String.class)),is("Team2"))).perform(click());
+        onView(withId(R.id.addTeam)).check(matches(withSpinnerText(containsString("Team2"))));
         onView(withId(R.id.adding)).perform(click());
         onView(withId(R.id.total)).check(matches(withText("Total Tasks: 1")));
 
@@ -75,9 +82,12 @@ public class TaskAppTests {
         onView(withId(R.id.settingLayout)).check(matches(isDisplayed()));
         onView(withId(R.id.username))
                 .perform(typeText("roaa"), closeSoftKeyboard());
+        onView(withId(R.id.chooseTeam)).perform(click());
+        onData(allOf(is(instanceOf(String.class)),is("Team2"))).perform(click());
+        onView(withId(R.id.chooseTeam)).check(matches(withSpinnerText(containsString("Team2"))));
         onView(withId(R.id.save)).perform(click());
         pressBack();
-        onView(withId(R.id.userTasks)).check(matches(withText("roaa's Tasks")));
+        onView(withId(R.id.userTasks)).check(matches(withText("Team2's Tasks")));
     }
 
     @Test
