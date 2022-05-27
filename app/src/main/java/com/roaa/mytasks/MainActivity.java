@@ -69,12 +69,12 @@ public class MainActivity extends AppCompatActivity {
             Amplify.addPlugin(new AWSDataStorePlugin());
             Amplify.configure(getApplicationContext());
 
-            Log.i(TAG, "Initialized Amplify");
+//            Log.i(TAG, "Initialized Amplify");
         } catch (AmplifyException e) {
-            Log.e(TAG, "Could not initialize Amplify", e);
+//            Log.e(TAG, "Could not initialize Amplify", e);
         }
 
-        Log.i(TAG, "onCreate: just for testing -->"+teamName);
+//        Log.i(TAG, "onCreate: just for testing -->"+teamName);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         teamName =sharedPreferences.getString(Settings.TEAMNAME,"Team");
@@ -146,20 +146,25 @@ public class MainActivity extends AppCompatActivity {
                             TeamInfoList.add(team);
 
                             Amplify.DataStore.save(team,
-                                    success -> Log.i(TAG, "Saved team: " + success.item().getName()),
-                                    error -> Log.e(TAG, "Could not save team to DataStore", error)
+                                    success -> {//Log.i(TAG, "Saved team: " + success.item().getName());
+                                },
+                                    error -> { //Log.e(TAG, "Could not save team to DataStore", error);
+                            }
                             );
 
                             Amplify.API.mutate(
                                     ModelMutation.create(team),
-                                    success -> Log.i(TAG, "Saved team: " + success.getData().getName()),
-                                    error -> Log.e(TAG, "Could not save team to API", error)
+                                    success -> { // Log.i(TAG, "Saved team: " + success.getData().getName());
+                                        },
+                                    error -> { // Log.e(TAG, "Could not save team to API", error);
+                                    }
                             );
                         }
                     }
 
                 },
-                error -> Log.e(TAG, "could not save the teams ", error)
+                error ->  { // Log.e(TAG, "could not save the teams ", error);
+                }
         );
     }
      private void getTeamTasks(){
@@ -171,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                          for (Team team : teamSuccess.getData())
                          {
                                  teamId=team.getId();
-                                 Log.i(TAG, "getTeamId: just for testing ->"+team.getName());
+//                                 Log.i(TAG, "getTeamId: just for testing ->"+team.getName());
                          }
                          Amplify.API.query(
                                  ModelQuery.list(Task.class,Task.TEAM_TASKS_ID.eq(teamId)),
@@ -190,12 +195,13 @@ public class MainActivity extends AppCompatActivity {
                                      handler.sendMessage(message);
 
                                  },
-                                 error -> Log.e(TAG, "Could not query Api", error)
+                                 error -> { //Log.e(TAG, "Could not query Api", error);
+                                 }
                          );
                      }
                  }
                  , error->{
-                     Log.e(TAG,"Could not query Api",error);
+//                     Log.e(TAG,"Could not query Api",error);
          });
 
          handler = new Handler(Looper.getMainLooper(), msg -> {
@@ -221,9 +227,9 @@ public class MainActivity extends AppCompatActivity {
      }
      private void getAllTasks(){
          List<Task> TaskInfoList = new ArrayList<>();
-         Log.i(TAG, "filterTeams: just for testing->"+teamName);
+//         Log.i(TAG, "filterTeams: just for testing->"+teamName);
 
-         Log.i(TAG, "filterTeams: the first one-> ");
+//         Log.i(TAG, "filterTeams: the first one-> ");
          Amplify.API.query(
                      ModelQuery.list(Task.class),
                      success -> {
@@ -241,7 +247,8 @@ public class MainActivity extends AppCompatActivity {
                          handler.sendMessage(message);
 
                      },
-                     error -> Log.e(TAG, "Could not query Api", error)
+                     error -> { //Log.e(TAG, "Could not query Api", error);
+                     }
          );
 
          handler = new Handler(Looper.getMainLooper(), msg -> {
@@ -288,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(TAG, "onResume: just for testing -->"+teamName);
+//        Log.i(TAG, "onResume: just for testing -->"+teamName);
         setUserName();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         teamName =sharedPreferences.getString(Settings.TEAMNAME,"Team");
@@ -309,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         teamName =sharedPreferences.getString(Settings.TEAMNAME,"Team");
-        Log.i(TAG, "setUserName: just for testing ->"+teamName);
+//        Log.i(TAG, "setUserName: just for testing ->"+teamName);
         userTasks.setText(sharedPreferences.getString(Settings.TEAMNAME, "Team")+"'s Tasks");
     }
 

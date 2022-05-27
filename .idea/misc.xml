@@ -5,12 +5,14 @@
       <map>
         <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/drawable/back.xml" value="0.188" />
         <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1515" />
+        <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/drawable/splash_screenbackground.xml" value="0.1535" />
         <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/drawable/state_design.xml" value="0.173" />
         <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/drawable/username_back.xml" value="0.173" />
         <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/layout/activity_main2.xml" value="0.1935185185185185" />
         <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/layout/activity_main3.xml" value="0.21" />
         <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/layout/activity_settings.xml" value="0.22" />
+        <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/layout/activity_task_details.xml" value="0.25" />
         <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/layout/task_item.xml" value="0.25" />
         <entry key="..\:/Users/Roa'a/androidStudio/taskmaster/app/src/main/res/menu/main.xml" value="0.20416666666666666" />

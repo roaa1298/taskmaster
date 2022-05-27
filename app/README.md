@@ -141,5 +141,13 @@
 
 ### After the editing in lab32:   
 
-![detail](screenshots/detail_aws.jpeg)
+![detail](screenshots/detail_aws.jpeg)  
+
+## Splash Screen  
+
+![Splash_Screen](screenshots/splashScreen.png)
+
+### After the editing in lab34:  
+- i created an apk for the final release.
+- i created a splash screen.
 
