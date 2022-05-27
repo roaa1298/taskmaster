@@ -88,19 +88,24 @@ public class MainActivity2 extends AppCompatActivity {
                                         .description(taskDescription.getText().toString()).build();
 
                                 Amplify.DataStore.save(newTask,
-                                        success -> Log.i(TAG, "Saved item: " + success.item().getTitle()),
-                                        error -> Log.e(TAG, "Could not save item to DataStore", error)
+                                        success -> { //Log.i(TAG, "Saved item: " + success.item().getTitle());
+                                    },
+                                        error -> { //Log.e(TAG, "Could not save item to DataStore", error);
+                                }
                                 );
 
                                 Amplify.API.mutate(
                                         ModelMutation.create(newTask),
-                                        success -> Log.i(TAG, "Saved item: " + success.getData().getTitle()),
-                                        error -> Log.e(TAG, "Could not save item to API", error)
+                                        success -> { //Log.i(TAG, "Saved item: " + success.getData().getTitle());
+                                            },
+                                        error -> { //Log.e(TAG, "Could not save item to API", error);
+                                        }
                                 );
                             }
                         }
                     },
-                    error -> Log.e(TAG, error.toString(), error)
+                    error -> { //Log.e(TAG, error.toString(), error);
+                    }
             );
 
 //            Task task=new Task(taskTitle.getText().toString(),taskDescription.getText().toString(),"assigned");
