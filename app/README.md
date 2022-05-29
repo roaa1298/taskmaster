@@ -51,6 +51,14 @@
 
 ![home](screenshots/homeTeam2.png)   
 
+### After the editing in lab36:
+- Add logout button to exit from the current Authenticated user. 
+- Display the nickname of the current Authenticated user.
+
+![logout](screenshots/logoutButtonInMenu.png)
+
+![mainActivityWithUsername](screenshots/mainActivityWithUsername.png)
+
 ## Add Task page
 - Here is the **Add Task** page that contains two text fields to add the task name and description.
 - And there is a submit button **(add Task)**, it is increase the total number of tasks and show it at the bottom, and show a toast message that contains **"submitted!"** text.
@@ -150,4 +158,30 @@
 ### After the editing in lab34:  
 - i created an apk for the final release.
 - i created a splash screen.
+
+## Sign Up Page (After the editing in lab36)
+- The user can enter his information and register to my app.
+- A confirmation code will be sent to the user's email to confirm his registration.
+
+![signUp](screenshots/signUpActivity.png)
+
+![signUp](screenshots/signUpInformation.png)
+
+- If the user tried to signUp with an exists email, an alert dialog will display to till the user that the username already exists in the system.  
+
+![emailAlreadyExists](screenshots/emailAlreadyExists.png)
+
+### confirmation Page (After the editing in lab36)
+- Enter the number from the user's email to confirm his registration.
+
+![confirmation](screenshots/verificationCode2.png)
+
+![confirmation](screenshots/verificationNumber.png)
+
+## sign In Page  (After the editing in lab36)
+- After confirming the user registration, the user can sign in to the app with his email and password.
+
+![signIn](screenshots/loginActivity.png)
+
+![signIn](screenshots/loginActivity2.png)
 

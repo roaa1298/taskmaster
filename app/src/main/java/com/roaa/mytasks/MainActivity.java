@@ -1,6 +1,7 @@
 package com.roaa.mytasks;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,10 +22,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.amazonaws.mobileconnectors.cognitoauth.Auth;
+import com.amazonaws.mobileconnectors.cognitoauth.AuthUserSession;
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.AuthUser;
+import com.amplifyframework.auth.AuthUserAttribute;
+import com.amplifyframework.auth.AuthUserAttributeKey;
+import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
@@ -58,21 +66,26 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     private String teamId;
+    private String nickNameUser;
+    private TextView user_name;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            Amplify.addPlugin(new AWSApiPlugin());
-            Amplify.addPlugin(new AWSDataStorePlugin());
-            Amplify.configure(getApplicationContext());
+        authSession();
 
-//            Log.i(TAG, "Initialized Amplify");
-        } catch (AmplifyException e) {
-//            Log.e(TAG, "Could not initialize Amplify", e);
-        }
+//        try {
+//            Amplify.addPlugin(new AWSApiPlugin());
+//            Amplify.addPlugin(new AWSDataStorePlugin());
+//            Amplify.configure(getApplicationContext());
+//
+////            Log.i(TAG, "Initialized Amplify");
+//        } catch (AmplifyException e) {
+////            Log.e(TAG, "Could not initialize Amplify", e);
+//        }
 
 //        Log.i(TAG, "onCreate: just for testing -->"+teamName);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -86,6 +99,24 @@ public class MainActivity extends AppCompatActivity {
         Button addButton = findViewById(R.id.addTask);
         Button allButton = findViewById(R.id.allTasks);
         userTasks=findViewById(R.id.userTasks);
+        user_name = findViewById(R.id.user_name);
+
+        // This just for testing
+        Amplify.Auth.fetchUserAttributes(
+                attributes -> {
+                    Log.i("AuthDemo", "User attributes = " + attributes.toString());
+                    attributes.forEach(authUserAttribute -> {
+                        if (authUserAttribute.getKey().getKeyString().equals("nickname"))
+                        {
+                            nickNameUser=authUserAttribute.getValue().toString();
+                            Log.i(TAG,"The nickName-------->"+nickNameUser);
+                        }
+                    });
+                },
+                error -> Log.e("AuthDemo", "Failed to fetch user attributes.", error)
+        );
+
+        user_name.setText(nickNameUser);
 
 //        initialiseData();
 //        TaskInfoList=TaskAppDatabase.getInstance(getApplicationContext()).taskDao().getAll();
@@ -205,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
          });
 
          handler = new Handler(Looper.getMainLooper(), msg -> {
+             user_name.setText(nickNameUser);
              RecyclerView recyclerView = findViewById(R.id.tasks);
              TaskRecyclerViewAdapter taskRecyclerViewAdapter = new TaskRecyclerViewAdapter(
                      teamTasks, position -> {
@@ -252,6 +284,7 @@ public class MainActivity extends AppCompatActivity {
          );
 
          handler = new Handler(Looper.getMainLooper(), msg -> {
+             user_name.setText(nickNameUser);
              RecyclerView recyclerView = findViewById(R.id.tasks);
              TaskRecyclerViewAdapter taskRecyclerViewAdapter = new TaskRecyclerViewAdapter(
                      TaskInfoList, position -> {
@@ -287,6 +320,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 navigateToSettings();
                 return true;
+            case R.id.action_logout:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -307,6 +343,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    private void authSession() {
+        Amplify.Auth.fetchAuthSession(
+                result -> Log.i(TAG,  result.toString()),
+                error -> Log.e(TAG, error.toString())
+        );
+    }
+
+    private void logout() {
+        Amplify.Auth.signOut(
+                () -> {
+                    Log.i(TAG, "Signed out successfully");
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    authSession();
+                    finish();
+                },
+                error -> Log.e(TAG, error.toString())
+        );
+    }
+
     private void navigateToSettings() {
         Intent settingsIntent = new Intent(this, Settings.class);
         startActivity(settingsIntent);

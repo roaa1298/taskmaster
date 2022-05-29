@@ -13,4 +13,21 @@
         <item>Team2</item>
         <item>Team3</item>
     </string-array>
+    <string name="title_activity_login">Login Activity</string>
+    <string name="title_activity_sign_up">SignUp Activity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="sign_up_prompt">Don\'t have account? SIGN UP</string>
+    <string name="label_enter_code">Enter verification code</string>
+    <string name="confirmationText">A confirmation code will be sent to Your email.\nPlease enter the confirmation code here.</string>
+    <string name="logout">Logout</string>
+    <string name="nick_name">Nick name</string>
+    <string name="login_text_view">Enter your username and password.</string>
 </resources>
