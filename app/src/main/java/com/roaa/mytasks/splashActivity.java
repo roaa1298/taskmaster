@@ -1,11 +1,9 @@
-package com.roaa.mytasks.data;
+package com.roaa.mytasks;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.roaa.mytasks.MainActivity;
 
 public class splashActivity extends AppCompatActivity {
 
@@ -13,7 +11,7 @@ public class splashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        startActivity(new Intent(splashActivity.this, MainActivity.class));
+        startActivity(new Intent(splashActivity.this, LoginActivity.class));
 
         finish();
     }
