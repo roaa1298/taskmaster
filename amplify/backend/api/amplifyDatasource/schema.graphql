@@ -5,6 +5,7 @@ type Task @model {
   title: String!
   description: String
   status: Status!
+  image: String
 }
 type Team @model {
   id: ID!

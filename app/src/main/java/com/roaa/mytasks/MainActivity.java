@@ -245,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
                  intent1.putExtra("TaskTitle",teamTasks.get(position).getTitle());
                  intent1.putExtra("TaskDesc",teamTasks.get(position).getDescription());
                  intent1.putExtra("TaskState",teamTasks.get(position).getStatus().toString());
+                 intent1.putExtra("TaskId",teamTasks.get(position).getId());
                  startActivity(intent1);
              });
              recyclerView.setAdapter(taskRecyclerViewAdapter);
@@ -293,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
                  intent1.putExtra("TaskTitle",TaskInfoList.get(position).getTitle());
                  intent1.putExtra("TaskDesc",TaskInfoList.get(position).getDescription());
                  intent1.putExtra("TaskState",TaskInfoList.get(position).getStatus().toString());
+                 intent1.putExtra("TaskId",TaskInfoList.get(position).getId());
                  startActivity(intent1);
              });
              recyclerView.setAdapter(taskRecyclerViewAdapter);

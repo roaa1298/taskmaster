@@ -2,88 +2,67 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/task_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/task_details"
     tools:context=".TaskDetails">
 
     <TextView
         android:id="@+id/desc"
-        android:layout_width="327dp"
-        android:layout_height="180dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="100dp"
+        android:layout_width="352dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/back"
         android:fontFamily="@font/boogaloo"
         android:text="@string/lorem_string"
         android:textColor="#00302F"
-        android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="324dp"
-        android:layout_height="156dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/task_details" />
-
-    <ImageView
-        android:id="@+id/fighting"
-        android:layout_width="69dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="28dp"
-        android:alpha=".55"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/desc"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/korean_word" />
+        app:layout_constraintTop_toBottomOf="@+id/taskTitleView" />
 
     <TextView
         android:id="@+id/task_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="211dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/state_design"
+        android:gravity="center"
         android:selectAllOnFocus="false"
         android:shadowColor="#7E7E7E"
         android:text="state"
-        android:gravity="center"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/taskImage" />
 
     <TextView
         android:id="@+id/taskTitleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="69dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginTop="10dp"
         android:background="#C9FFFF"
         android:fontFamily="@font/carter_one"
         android:padding="5dp"
         android:text="Task Title"
         android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.101"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.47" />
+        app:layout_constraintTop_toBottomOf="@+id/task_state" />
+
+    <ImageView
+        android:id="@+id/taskImage"
+        android:layout_width="400dp"
+        android:layout_height="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

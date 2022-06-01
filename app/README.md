@@ -83,6 +83,17 @@
 
 ![add](screenshots/AddToTeam3.png)    
 
+### After the editing in lab37:  
+- Add a task with an image.
+
+![add](screenshots/addTaskWithImage.png)
+
+- selecting an image.
+
+![select](screenshots/ImagePicker.png)
+
+![select](screenshots/selectingAnImage.png)
+
 ## Increase the total
 - Here is the total increased after i clicked on the **add Task** button.
 
@@ -150,6 +161,17 @@
 ### After the editing in lab32:   
 
 ![detail](screenshots/detail_aws.jpeg)  
+
+### After the editing in lab37:  
+- Here is a task that doesn't have an Image, so i uploaded a default image.
+
+![detail](screenshots/withDefaultImage.png)
+
+- Displaying the image that related to the task that we uploaded with the task.
+
+![detail](screenshots/uploadImage.png)
+
+![detail](screenshots/taskS3.png)
 
 ## Splash Screen  
 
