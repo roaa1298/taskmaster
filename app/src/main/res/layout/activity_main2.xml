@@ -79,7 +79,7 @@
         android:layout_width="115dp"
         android:layout_height="54dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="159dp"
         android:backgroundTint="@color/teal_700"
         android:text="Add Task"
         android:textColor="@color/white"
@@ -113,6 +113,31 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:textColor="#015A5A"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="Upload a picture: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/upload"
+        android:layout_width="94dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="21dp"
+        android:backgroundTint="@color/teal_700"
+        android:textColor="@color/white"
+        android:text="Upload"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/addTeam" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
