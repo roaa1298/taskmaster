@@ -94,6 +94,13 @@
 
 ![select](screenshots/selectingAnImage.png)
 
+### After the editing in lab37:  
+- Pick an image from another app and share it to my application to add a task with this image.
+
+![add](screenshots/shareImage.jpeg)
+
+![add](screenshots/addTaskWithSharedImage.jpeg)
+
 ## Increase the total
 - Here is the total increased after i clicked on the **add Task** button.
 
@@ -172,6 +179,11 @@
 ![detail](screenshots/uploadImage.png)
 
 ![detail](screenshots/taskS3.png)
+
+### After the editing in lab37:  
+- Here is the task that i have added with a shared image from another app.
+
+![detail](screenshots/TaskDetailWithSharedImage.jpeg)
 
 ## Splash Screen  
 
