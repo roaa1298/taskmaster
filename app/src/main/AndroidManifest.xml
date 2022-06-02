@@ -47,8 +47,15 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity2"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:exported="true"
+            android:parentActivityName=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="image/*"/>
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="false" />

@@ -59,6 +59,18 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        Intent intent2=getIntent();
+        String imageAction= intent2.getAction();
+        String imageType= intent2.getType();
+
+        if (Intent.ACTION_SEND.equals(imageAction) && imageType != null)
+        {
+            if (imageType.equals("image/*"))
+            {
+                handleSendImage(intent2);
+            }
+        }
+
 
         Spinner spino= findViewById(R.id.addTeam);
 
@@ -152,6 +164,31 @@ public class MainActivity2 extends AppCompatActivity {
 
             startActivityForResult(intent, REQUEST_CODE);
         });
+
+    }
+
+    private void handleSendImage(Intent intent2) {
+        Uri imageUri =  intent2.getParcelableExtra(Intent.EXTRA_STREAM);
+        if (imageUri != null) {
+            try {
+                Bitmap bitmap = getBitmapFromUri(imageUri);
+                String tit;
+                if (taskTitle!=null)
+                {
+                    tit = taskTitle.getText().toString();
+                } else {
+                    tit="task";
+                }
+
+                file = new File(getApplicationContext().getFilesDir(), tit+".jpg");
+                OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+                os.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
