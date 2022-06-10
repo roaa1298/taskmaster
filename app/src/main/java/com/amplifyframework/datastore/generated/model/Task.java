@@ -25,12 +25,16 @@ public final class Task implements Model {
   public static final QueryField DESCRIPTION = field("Task", "description");
   public static final QueryField STATUS = field("Task", "status");
   public static final QueryField IMAGE = field("Task", "image");
+  public static final QueryField LOCATION_LATITUDE = field("Task", "location_latitude");
+  public static final QueryField LOCATION_LONGITUDE = field("Task", "location_longitude");
   public static final QueryField TEAM_TASKS_ID = field("Task", "teamTasksId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String") String description;
   private final @ModelField(targetType="Status", isRequired = true) Status status;
   private final @ModelField(targetType="String") String image;
+  private final @ModelField(targetType="String") String location_latitude;
+  private final @ModelField(targetType="String") String location_longitude;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   private final @ModelField(targetType="ID") String teamTasksId;
@@ -54,6 +58,14 @@ public final class Task implements Model {
       return image;
   }
   
+  public String getLocationLatitude() {
+      return location_latitude;
+  }
+  
+  public String getLocationLongitude() {
+      return location_longitude;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -66,12 +78,14 @@ public final class Task implements Model {
       return teamTasksId;
   }
   
-  private Task(String id, String title, String description, Status status, String image, String teamTasksId) {
+  private Task(String id, String title, String description, Status status, String image, String location_latitude, String location_longitude, String teamTasksId) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.status = status;
     this.image = image;
+    this.location_latitude = location_latitude;
+    this.location_longitude = location_longitude;
     this.teamTasksId = teamTasksId;
   }
   
@@ -88,6 +102,8 @@ public final class Task implements Model {
               ObjectsCompat.equals(getDescription(), task.getDescription()) &&
               ObjectsCompat.equals(getStatus(), task.getStatus()) &&
               ObjectsCompat.equals(getImage(), task.getImage()) &&
+              ObjectsCompat.equals(getLocationLatitude(), task.getLocationLatitude()) &&
+              ObjectsCompat.equals(getLocationLongitude(), task.getLocationLongitude()) &&
               ObjectsCompat.equals(getCreatedAt(), task.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), task.getUpdatedAt()) &&
               ObjectsCompat.equals(getTeamTasksId(), task.getTeamTasksId());
@@ -102,6 +118,8 @@ public final class Task implements Model {
       .append(getDescription())
       .append(getStatus())
       .append(getImage())
+      .append(getLocationLatitude())
+      .append(getLocationLongitude())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .append(getTeamTasksId())
@@ -118,6 +136,8 @@ public final class Task implements Model {
       .append("description=" + String.valueOf(getDescription()) + ", ")
       .append("status=" + String.valueOf(getStatus()) + ", ")
       .append("image=" + String.valueOf(getImage()) + ", ")
+      .append("location_latitude=" + String.valueOf(getLocationLatitude()) + ", ")
+      .append("location_longitude=" + String.valueOf(getLocationLongitude()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()) + ", ")
       .append("teamTasksId=" + String.valueOf(getTeamTasksId()))
@@ -144,6 +164,8 @@ public final class Task implements Model {
       null,
       null,
       null,
+      null,
+      null,
       null
     );
   }
@@ -154,6 +176,8 @@ public final class Task implements Model {
       description,
       status,
       image,
+      location_latitude,
+      location_longitude,
       teamTasksId);
   }
   public interface TitleStep {
@@ -171,6 +195,8 @@ public final class Task implements Model {
     BuildStep id(String id);
     BuildStep description(String description);
     BuildStep image(String image);
+    BuildStep locationLatitude(String locationLatitude);
+    BuildStep locationLongitude(String locationLongitude);
     BuildStep teamTasksId(String teamTasksId);
   }
   
@@ -181,6 +207,8 @@ public final class Task implements Model {
     private Status status;
     private String description;
     private String image;
+    private String location_latitude;
+    private String location_longitude;
     private String teamTasksId;
     @Override
      public Task build() {
@@ -192,6 +220,8 @@ public final class Task implements Model {
           description,
           status,
           image,
+          location_latitude,
+          location_longitude,
           teamTasksId);
     }
     
@@ -222,6 +252,18 @@ public final class Task implements Model {
     }
     
     @Override
+     public BuildStep locationLatitude(String locationLatitude) {
+        this.location_latitude = locationLatitude;
+        return this;
+    }
+    
+    @Override
+     public BuildStep locationLongitude(String locationLongitude) {
+        this.location_longitude = locationLongitude;
+        return this;
+    }
+    
+    @Override
      public BuildStep teamTasksId(String teamTasksId) {
         this.teamTasksId = teamTasksId;
         return this;
@@ -239,12 +281,14 @@ public final class Task implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String description, Status status, String image, String teamTasksId) {
+    private CopyOfBuilder(String id, String title, String description, Status status, String image, String locationLatitude, String locationLongitude, String teamTasksId) {
       super.id(id);
       super.title(title)
         .status(status)
         .description(description)
         .image(image)
+        .locationLatitude(locationLatitude)
+        .locationLongitude(locationLongitude)
         .teamTasksId(teamTasksId);
     }
     
@@ -266,6 +310,16 @@ public final class Task implements Model {
     @Override
      public CopyOfBuilder image(String image) {
       return (CopyOfBuilder) super.image(image);
+    }
+    
+    @Override
+     public CopyOfBuilder locationLatitude(String locationLatitude) {
+      return (CopyOfBuilder) super.locationLatitude(locationLatitude);
+    }
+    
+    @Override
+     public CopyOfBuilder locationLongitude(String locationLongitude) {
+      return (CopyOfBuilder) super.locationLongitude(locationLongitude);
     }
     
     @Override

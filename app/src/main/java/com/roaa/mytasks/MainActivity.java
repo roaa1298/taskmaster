@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.amazonaws.mobileconnectors.cognitoauth.Auth;
 import com.amazonaws.mobileconnectors.cognitoauth.AuthUserSession;
 import com.amplifyframework.AmplifyException;
+import com.amplifyframework.analytics.AnalyticsEvent;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
@@ -36,6 +37,7 @@ import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
+import com.amplifyframework.predictions.models.LanguageType;
 //import com.roaa.mytasks.data.Task;
 
 import java.util.ArrayList;
@@ -159,6 +161,22 @@ public class MainActivity extends AppCompatActivity {
 
         addButton.setOnClickListener(addTaskButtonListener);
         allButton.setOnClickListener(allTasksButtonListener);
+
+        AnalyticsEvent event = AnalyticsEvent.builder()
+                .name("MainPage")
+                .addProperty("Successful", true)
+                .addProperty("ProcessDuration", 792)
+                .build();
+
+        Amplify.Analytics.recordEvent(event);
+
+        Amplify.Predictions.translateText(
+                "Great job",
+                LanguageType.ENGLISH,
+                LanguageType.KOREAN,
+                result -> Log.i("MyAmplifyApp", result.getTranslatedText()),
+                error -> Log.e("MyAmplifyApp", "Translation failed", error)
+        );
     }
 
     private void createTeams() {

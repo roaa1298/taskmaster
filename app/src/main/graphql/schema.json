@@ -478,6 +478,30 @@
                         "deprecationReason": null
                     },
                     {
+                        "name": "location_latitude",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "location_longitude",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
                         "name": "createdAt",
                         "description": null,
                         "args": [],
@@ -704,6 +728,26 @@
                     },
                     {
                         "name": "image",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "location_latitude",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "location_longitude",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -2268,6 +2312,26 @@
                         "defaultValue": null
                     },
                     {
+                        "name": "location_latitude",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "location_longitude",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
                         "name": "_version",
                         "description": null,
                         "type": {
@@ -2330,6 +2394,26 @@
                     },
                     {
                         "name": "image",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "location_latitude",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "location_longitude",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -2443,6 +2527,26 @@
                     },
                     {
                         "name": "image",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "location_latitude",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "location_longitude",
                         "description": null,
                         "type": {
                             "kind": "SCALAR",

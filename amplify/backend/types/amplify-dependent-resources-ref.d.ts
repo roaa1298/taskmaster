@@ -22,5 +22,32 @@ export type AmplifyDependentResourcesAttributes = {
             "BucketName": "string",
             "Region": "string"
         }
+    },
+    "geo": {
+        "map1a129b50": {
+            "Name": "string",
+            "Style": "string",
+            "Region": "string",
+            "Arn": "string"
+        }
+    },
+    "analytics": {
+        "taskmaster": {
+            "Region": "string",
+            "Id": "string",
+            "appName": "string"
+        }
+    },
+    "predictions": {
+        "translateTextfc164207": {
+            "region": "string",
+            "sourceLang": "string",
+            "targetLang": "string"
+        },
+        "speechGeneratore5e1dedd": {
+            "region": "string",
+            "language": "string",
+            "voice": "string"
+        }
     }
 }

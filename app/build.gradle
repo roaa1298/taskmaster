@@ -45,6 +45,10 @@ dependencies {
     implementation 'com.amplifyframework:aws-auth-cognito:1.35.4'
     implementation 'com.amplifyframework:aws-storage-s3:1.35.4'
     implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.amplifyframework:aws-geo-location:1.0.0'
+    implementation 'com.amplifyframework:maplibre-adapter:1.0.0'
+    implementation 'com.amplifyframework:aws-analytics-pinpoint:1.35.4'
+    implementation 'com.amplifyframework:aws-predictions:1.35.4'
     annotationProcessor "androidx.room:room-compiler:2.4.2"
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
