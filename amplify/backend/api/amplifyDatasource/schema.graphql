@@ -6,6 +6,8 @@ type Task @model {
   description: String
   status: Status!
   image: String
+  location_latitude: String
+  location_longitude: String
 }
 type Team @model {
   id: ID!

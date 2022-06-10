@@ -59,6 +59,11 @@
 
 ![mainActivityWithUsername](screenshots/mainActivityWithUsername.png)
 
+### After the editing in lab41:  
+- add Analytics on the home page.
+
+![analytics](screenshots/analytics.png)
+
 ## Add Task page
 - Here is the **Add Task** page that contains two text fields to add the task name and description.
 - And there is a submit button **(add Task)**, it is increase the total number of tasks and show it at the bottom, and show a toast message that contains **"submitted!"** text.
@@ -94,7 +99,7 @@
 
 ![select](screenshots/selectingAnImage.png)
 
-### After the editing in lab37:  
+### After the editing in lab38:  
 - Pick an image from another app and share it to my application to add a task with this image.
 
 ![add](screenshots/shareImage.jpeg)
@@ -180,10 +185,18 @@
 
 ![detail](screenshots/taskS3.png)
 
-### After the editing in lab37:  
+### After the editing in lab38:  
 - Here is the task that i have added with a shared image from another app.
 
 ![detail](screenshots/TaskDetailWithSharedImage.jpeg)
+
+### After the editing in lab41:  
+- add audio button to read the description of the task (convert the text int speech).
+- add translator button to translate the description of the task into arabic language.
+
+![detail](screenshots/englishText.jpeg)
+
+![detail](screenshots/arabicText.jpeg)
 
 ## Splash Screen  
 

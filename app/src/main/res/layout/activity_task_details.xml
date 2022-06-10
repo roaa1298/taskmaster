@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/desc"
         android:layout_width="352dp"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/back"
         android:fontFamily="@font/boogaloo"
@@ -64,5 +64,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageButton
+        android:id="@+id/read"
+        android:layout_width="58dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="136dp"
+        android:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_lock_silent_mode_off"
+        app:tint="#005C54" />
+
+    <ImageView
+        android:id="@+id/translate"
+        android:layout_width="46dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="140dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/translation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
