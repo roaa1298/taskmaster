@@ -64,6 +64,35 @@
 
 ![analytics](screenshots/analytics.png)
 
+### After the editing in lab42:
+- Adding **the banner Ad** at the bottom of the home page.
+  
+![home](screenshots/bannerAd.jpeg)
+
+- Adding two buttons for the **rewarded** and the **interstitial** Ads.
+  
+![home](screenshots/allAds.jpeg)
+
+- **The interstitial Ad** : is a full-screen ads that cover the interface of an app until closed by the user.
+  
+![home](screenshots/interstitialAd.jpeg)
+
+- **The rewarded Ad** : Ads that reward users for watching short videos and interacting with playable ads and surveys.
+  
+![home](screenshots/rewardedAd.jpeg)
+
+![home](screenshots/rewardedAd2.jpeg)
+
+- **The rewarded Ad type** 
+  
+![home](screenshots/rewardType.jpeg)
+
+- **The rewarded Ad Amount**
+  
+![home](screenshots/rewardAmount.jpeg)
+
+- **These buttons just for testing the ads, we can put these ads during natural transitions/pauses in our app.**
+
 ## Add Task page
 - Here is the **Add Task** page that contains two text fields to add the task name and description.
 - And there is a submit button **(add Task)**, it is increase the total number of tasks and show it at the bottom, and show a toast message that contains **"submitted!"** text.
