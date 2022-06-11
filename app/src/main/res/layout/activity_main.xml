@@ -58,7 +58,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
+        android:layout_height="250dp"
         android:layout_marginTop="12dp"
         android:background="#C6018786"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,5 +77,40 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="40dp"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tasks"
+        tools:layout_editor_absoluteY="679dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/interstitialAd"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:text="In"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/rewardedAd"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="13dp"
+        android:text="Re"
+        app:layout_constraintEnd_toStartOf="@+id/interstitialAd"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

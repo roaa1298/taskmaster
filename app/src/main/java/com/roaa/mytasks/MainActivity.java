@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -21,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.cognitoauth.Auth;
 import com.amazonaws.mobileconnectors.cognitoauth.AuthUserSession;
@@ -38,6 +40,17 @@ import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
 import com.amplifyframework.predictions.models.LanguageType;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 //import com.roaa.mytasks.data.Task;
 
 import java.util.ArrayList;
@@ -70,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
     private String teamId;
     private String nickNameUser;
     private TextView user_name;
+    private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
+    private RewardedAd mRewardedAd;
+    private Button interstitialAd;
+    private Button rewardedAd;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -102,6 +120,12 @@ public class MainActivity extends AppCompatActivity {
         Button allButton = findViewById(R.id.allTasks);
         userTasks=findViewById(R.id.userTasks);
         user_name = findViewById(R.id.user_name);
+        mAdView = findViewById(R.id.adView);
+        interstitialAd=findViewById(R.id.interstitialAd);
+        rewardedAd=findViewById(R.id.rewardedAd);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         // This just for testing
         Amplify.Auth.fetchUserAttributes(
@@ -177,6 +201,36 @@ public class MainActivity extends AppCompatActivity {
                 result -> Log.i("MyAmplifyApp", result.getTranslatedText()),
                 error -> Log.e("MyAmplifyApp", "Translation failed", error)
         );
+
+        interstitialAd.setOnClickListener(view -> {
+            loadInterstitialAd();
+            if (mInterstitialAd != null) {
+                mInterstitialAd.show(MainActivity.this);
+            } else {
+                Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            }
+        });
+
+        rewardedAd.setOnClickListener(view -> {
+            loadRewardedAd();
+            if (mRewardedAd != null) {
+                Activity activityContext = MainActivity.this;
+                mRewardedAd.show(activityContext, new OnUserEarnedRewardListener() {
+                    @Override
+                    public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                        // Handle the reward.
+                        Log.d(TAG, "The user earned the reward.");
+                        int rewardAmount = rewardItem.getAmount();
+                        String rewardType = rewardItem.getType();
+                        Toast.makeText(activityContext, "the amount => " + rewardAmount, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activityContext, "the type => " + rewardType, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Log.d(TAG, "The rewarded ad wasn't ready yet.");
+            }
+        });
+
     }
 
     private void createTeams() {
@@ -394,6 +448,92 @@ public class MainActivity extends AppCompatActivity {
         teamName =sharedPreferences.getString(Settings.TEAMNAME,"Team");
 //        Log.i(TAG, "setUserName: just for testing ->"+teamName);
         userTasks.setText(sharedPreferences.getString(Settings.TEAMNAME, "Team")+"'s Tasks");
+    }
+
+    private void loadInterstitialAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onAdLoaded");
+
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                Log.d("TAG", "The ad was dismissed.");
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when fullscreen content failed to show.
+                                Log.d("TAG", "The ad failed to show.");
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when fullscreen content is shown.
+                                // Make sure to set your reference to null so you don't
+                                // show it a second time.
+                                mInterstitialAd = null;
+                                Log.d("TAG", "The ad was shown.");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i(TAG, loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
+    }
+    private void loadRewardedAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        RewardedAd.load(this, "ca-app-pub-3940256099942544/5224354917",
+                adRequest, new RewardedAdLoadCallback() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error.
+                        Log.d(TAG, loadAdError.getMessage());
+                        mRewardedAd = null;
+                    }
+
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                        mRewardedAd = rewardedAd;
+                        Log.d(TAG, "Ad was loaded.");
+
+                        mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when ad is shown.
+                                Log.d(TAG, "Ad was shown.");
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when ad fails to show.
+                                Log.d(TAG, "Ad failed to show.");
+                            }
+
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when ad is dismissed.
+                                // Set the ad reference to null so you don't show the ad a second time.
+                                Log.d(TAG, "Ad was dismissed.");
+                                mRewardedAd = null;
+                            }
+                        });
+                    }
+                });
     }
 
 
