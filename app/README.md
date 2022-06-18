@@ -135,6 +135,11 @@
 
 ![add](screenshots/addTaskWithSharedImage.jpeg)
 
+### After the editing in lab39:
+- When the user adds a task, their location will be retrieved and included as part of the saved Task.
+
+![add](screenshots/locationReq.jpeg)
+
 ## Increase the total
 - Here is the total increased after i clicked on the **add Task** button.
 
@@ -218,6 +223,11 @@
 - Here is the task that i have added with a shared image from another app.
 
 ![detail](screenshots/TaskDetailWithSharedImage.jpeg)
+
+### After the editing in lab39:  
+- On the Task Detail activity, the location of a Task will be displayed if it exists.
+
+![detail](screenshots/locationCoordinate.jpeg)
 
 ### After the editing in lab41:  
 - add audio button to read the description of the task (convert the text int speech).

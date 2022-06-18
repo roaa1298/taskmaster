@@ -2,6 +2,7 @@ package com.roaa.mytasks;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,11 +34,13 @@ public class TaskDetails extends AppCompatActivity {
     private ImageView taskImage;
     private ImageButton descReader;
     private ImageView translate;
+    private TextView locCoordinate;
     String taskImg;
     Bitmap bitmap;
     boolean flag;
     private final MediaPlayer mp = new MediaPlayer();
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,7 @@ public class TaskDetails extends AppCompatActivity {
         taskImage = findViewById(R.id.taskImage);
         descReader=findViewById(R.id.read);
         translate=findViewById(R.id.translate);
+        locCoordinate=findViewById(R.id.locCoordinate);
 
         String taskId=titleIntent.getStringExtra("TaskId");
         Log.i(TAG,"The id for this task-------->"+taskId);
@@ -119,6 +123,11 @@ public class TaskDetails extends AppCompatActivity {
                 );
             }
         });
+
+        if (titleIntent.getStringExtra("locationLatitude")!= null && titleIntent.getStringExtra("locationLongitude")!=null)
+        {
+            locCoordinate.setText("( "+titleIntent.getStringExtra("locationLatitude")+", "+titleIntent.getStringExtra("locationLongitude")+" )");
+        }
 
 
 
