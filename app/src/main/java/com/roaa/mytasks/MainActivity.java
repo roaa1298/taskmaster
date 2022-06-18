@@ -318,6 +318,8 @@ public class MainActivity extends AppCompatActivity {
                  intent1.putExtra("TaskDesc",teamTasks.get(position).getDescription());
                  intent1.putExtra("TaskState",teamTasks.get(position).getStatus().toString());
                  intent1.putExtra("TaskId",teamTasks.get(position).getId());
+                 intent1.putExtra("locationLongitude",teamTasks.get(position).getLocationLongitude());
+                 intent1.putExtra("locationLatitude",teamTasks.get(position).getLocationLatitude());
                  startActivity(intent1);
              });
              recyclerView.setAdapter(taskRecyclerViewAdapter);
@@ -367,6 +369,8 @@ public class MainActivity extends AppCompatActivity {
                  intent1.putExtra("TaskDesc",TaskInfoList.get(position).getDescription());
                  intent1.putExtra("TaskState",TaskInfoList.get(position).getStatus().toString());
                  intent1.putExtra("TaskId",TaskInfoList.get(position).getId());
+                 intent1.putExtra("locationLongitude",TaskInfoList.get(position).getLocationLongitude());
+                 intent1.putExtra("locationLatitude",TaskInfoList.get(position).getLocationLatitude());
                  startActivity(intent1);
              });
              recyclerView.setAdapter(taskRecyclerViewAdapter);
